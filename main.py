@@ -121,6 +121,6 @@ if __name__ == '__main__':
 
     cities["dur_ratio"] = cities.apply(lambda row: row["dur_driving_val"]/row["dur_transit_val"]
         if row.notnull().all() else None, axis=1)
-    cities_ratio = cities.dropna(subset=["dur_ratio"]).head(20)
+    cities_ratio = cities.dropna(subset=["dur_ratio"])[1:].head(20)
 
     print(cities_ratio)
