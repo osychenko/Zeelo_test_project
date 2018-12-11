@@ -90,7 +90,7 @@ def get_duration(mode="driving", origins=None, loc_dest_raw="Victoria Station, L
             results = json.load(request).get("rows")
 
             if len(results) > 0:
-                duration.extend([x["elements"][0]["duration"] if x["elements"][0]["status"] == "OK" else None for x in results])
+                duration.extend([x["elements"][0].get("duration", None) for x in results])
             else:
                 print("HTTP GET Request failed.")
         except ValueError as e:
@@ -101,9 +101,13 @@ def get_duration(mode="driving", origins=None, loc_dest_raw="Victoria Station, L
 if __name__ == '__main__':
 
     cities = get_cities_df()
-    # head() doesn't sort DF, this is done in the query
+
+    # head() doesn't sort DF, this has been done in the query
     print(cities.head(int(len(cities) * 0.05)))
+
+    # dummy header to make things faster
     cities = cities[:110]
+
     # get coords list
     coords = cities["geopoint"].tolist()
 
@@ -112,8 +116,8 @@ if __name__ == '__main__':
 
     cities["dur_driving_val"] = pd.Series([x["value"] if x is not None else np.nan for x in dur_driving])
     cities["dur_transit_val"] = pd.Series([x["value"] if x is not None else np.nan for x in dur_transit])
-    cities["dur_driving_txt"] = pd.Series([x["text"] if x is not None else np.nan for x in dur_driving])
-    cities["dur_transit_txt"] = pd.Series([x["text"] if x is not None else np.nan for x in dur_transit])
+    cities["dur_driving_txt"] = pd.Series([x["text"] if x is not None else None for x in dur_driving])
+    cities["dur_transit_txt"] = pd.Series([x["text"] if x is not None else None for x in dur_transit])
 
     cities["dur_ratio"] = cities.apply(lambda row: row["dur_driving_val"]/row["dur_transit_val"]
         if row.notnull().all() else None, axis=1)
