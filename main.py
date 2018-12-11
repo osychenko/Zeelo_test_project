@@ -26,6 +26,7 @@ Description:
 import urllib.request
 import json
 import pandas as pd
+import numpy as np
 
 def get_cities_df():
     country_code = "gb"
@@ -65,31 +66,57 @@ def get_elevation(lat, lng):
     except ValueError as e:
         print('JSON decode failed: ' + str(request))
 
-def get_duration(transp_mode="driving", loc_orig=None, loc_dest_raw="Victoria Station, London"):
+def get_duration(mode="driving", origins=None, loc_dest_raw="Victoria Station, London"):
     apikey = "AIzaSyASv326cA584q9e707cOiyB_7_guhWdv_4"
-    #loc_orig, loc_dest = loc
-    loc_dest = loc_dest_raw.replace(' ', '+')
+    destinations_formatted = loc_dest_raw.replace(' ', '+')
 
-    # dummies
-    loc_orig = (42, 0)
-    url = f"https://maps.googleapis.com/maps/api/distancematrix/json?" \
-          f"origins={loc_orig[0]},{loc_orig[1]}&destinations={loc_dest}" \
-          f"&key={apikey}&mode={transp_mode}"
-    request = urllib.request.urlopen(url)
+    chunk_size = 100
 
-    try:
-        results = json.load(request).get("rows")
-        if len(results) > 0:
-            duration = results[0]["elements"][0]["duration"]["value"]
-            return duration
-        else:
-            print("HTTP GET Request failed.")
-    except ValueError as e:
-        print(f"JSON decode failed: {request}")
-        print(f"---\nError output:\n{e}\n---")
+    def chunker(seq, size):
+        return (seq[pos:pos + size] for pos in range(0, len(seq), size))
+
+    duration = []
+
+    for group in chunker(origins, chunk_size):
+        #loc_orig, loc_dest = loc
+        origins_formatted = "|".join(f"{x[0]},{x[1]}" for x in group)
+
+        url = f"https://maps.googleapis.com/maps/api/distancematrix/json?" \
+              f"origins={origins_formatted}&destinations={destinations_formatted}" \
+              f"&key={apikey}&mode={mode}"
+        request = urllib.request.urlopen(url)
+
+        try:
+            results = json.load(request).get("rows")
+
+            if len(results) > 0:
+                duration.extend([x["elements"][0]["duration"] if x["elements"][0]["status"] == "OK" else None for x in results])
+            else:
+                print("HTTP GET Request failed.")
+        except ValueError as e:
+            print(f"JSON decode failed: {request}")
+            print(f"---\nError output:\n{e}\n---")
+    return duration
 
 if __name__ == '__main__':
-    print(get_duration())
 
+    cities = get_cities_df()
     # head() doesn't sort DF, this is done in the query
-    #print(cities.head(int(len(cities) * 0.05)))
+    print(cities.head(int(len(cities) * 0.05)))
+    cities = cities[:110]
+    # get coords list
+    coords = cities["geopoint"].tolist()
+
+    dur_driving = get_duration(origins=coords)
+    dur_transit = get_duration(mode="transit", origins=coords)
+
+    cities["dur_driving_val"] = pd.Series([x["value"] if x is not None else np.nan for x in dur_driving])
+    cities["dur_transit_val"] = pd.Series([x["value"] if x is not None else np.nan for x in dur_transit])
+    cities["dur_driving_txt"] = pd.Series([x["text"] if x is not None else np.nan for x in dur_driving])
+    cities["dur_transit_txt"] = pd.Series([x["text"] if x is not None else np.nan for x in dur_transit])
+
+    cities["dur_ratio"] = cities.apply(lambda row: row["dur_driving_val"]/row["dur_transit_val"]
+        if row.notnull().all() else None, axis=1)
+    cities_ratio = cities.dropna(subset=["dur_ratio"]).head(20)
+
+    print(cities_ratio)
