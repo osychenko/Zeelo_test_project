@@ -28,6 +28,7 @@ import json
 import pandas as pd
 import numpy as np
 
+
 def get_cities_df():
     country_code = "gb"
     nrows = 1000
@@ -79,10 +80,10 @@ def get_duration(mode="driving", origins=None, loc_dest_raw="Victoria Station, L
 
     for group in chunker(origins, chunk_size):
         #loc_orig, loc_dest = loc
-        origins_formatted = "|".join(f"{x[0]},{x[1]}" for x in group)
+        origins_chunk_formatted = "|".join(f"{x[0]},{x[1]}" for x in group)
 
         url = f"https://maps.googleapis.com/maps/api/distancematrix/json?" \
-              f"origins={origins_formatted}&destinations={destinations_formatted}" \
+              f"origins={origins_chunk_formatted}&destinations={destinations_formatted}" \
               f"&key={apikey}&mode={mode}"
         request = urllib.request.urlopen(url)
 
