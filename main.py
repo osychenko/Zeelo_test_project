@@ -18,21 +18,21 @@ Packages:
     urllib
     re
     pandas
+    numpy
+    folium
 -----------------------
 Description:
 1)...
 2)...
 """
-import pandas as pd
-import numpy as np
-from duration import Duration
+from googleroutes import CitiesRoutes
 
 if __name__ == '__main__':
-    dur1 = Duration()
+    dur1 = CitiesRoutes()
 
     # head() doesn't sort DF, this has been done in the query
-    print(dur1.cities_table.head(int(len(dur1) * 0.05)))
+    #print(dur1.retrieve_cities(0.05))
+    print(dur1.draw_map())
 
     dur1.add_duration()
 
-    print(dur1.cities_table_ratio, dur1.cities_table_short)

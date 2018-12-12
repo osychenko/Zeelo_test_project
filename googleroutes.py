@@ -2,8 +2,9 @@ import urllib.request
 import json
 import pandas as pd
 import numpy as np
+import folium
 
-class Duration:
+class CitiesRoutes:
     'Class impementing a general interaction with Google Map API to compute routes'
 
     def __init__(self, country_code='gb'):
@@ -34,7 +35,11 @@ class Duration:
 
         results_fields = [x['fields'] for x in results]
         drop_columns = []  # probably, better leave ["country"]
+
         return pd.DataFrame(results_fields).drop(drop_columns, axis=1).dropna(subset=['population'])
+
+    def retrieve_cities(self, percentile=0.05):
+        return self.cities_table.head(int(len(self)*percentile))
 
     def get_duration(self, mode='driving', origins=None, loc_dest_raw='Victoria Station, London'):
         destinations_formatted = loc_dest_raw.replace(' ', '+')
@@ -63,14 +68,15 @@ class Duration:
             except ValueError as e:
                 print(f'JSON decode failed: {request}')
                 print(f'---\nError output:\n{e}\n---')
+
         return duration
 
     def add_duration(self):
         # get coords list
-        coords = self.cities_table["geopoint"].tolist()
+        self.coords = self.cities_table["geopoint"].tolist()
 
-        dur_driving = self.get_duration(origins=coords)
-        dur_transit = self.get_duration(mode="transit", origins=coords)
+        dur_driving = self.get_duration(origins=self.coords)
+        dur_transit = self.get_duration(mode="transit", origins=self.coords)
 
         self.cities_table["dur_driving_val"] = pd.Series([x["value"] if x is not None else np.nan for x in dur_driving])
         self.cities_table["dur_transit_val"] = pd.Series([x["value"] if x is not None else np.nan for x in dur_transit])
@@ -81,9 +87,37 @@ class Duration:
             lambda row: row["dur_driving_val"] / row["dur_transit_val"]
             if row.notnull().all() else None, axis=1)
 
+    def draw_map(self):
+        self.center_map = [self.cities_table['latitude'].mean(), self.cities_table['longitude'].mean()]
+
+        self.m = folium.Map(
+            location=[45.372, -121.6972],
+            zoom_start=12,
+            tiles='Stamen Terrain'
+        )
+
+        folium.Marker(
+            location=[45.3288, -121.6625],
+            popup='Mt. Hood Meadows',
+            icon=folium.Icon(icon='cloud')
+        ).add_to(self.m)
+
+        folium.Marker(
+            location=[45.3311, -121.7113],
+            popup='Timberline Lodge',
+            icon=folium.Icon(color='green')
+        ).add_to(self.m)
+
+        folium.Marker(
+            location=[45.3300, -121.6823],
+            popup='Some Other Location',
+            icon=folium.Icon(color='red', icon='info-sign')
+        ).add_to(self.m)
+        self.m.save('map.html')
+
     @property
     def cities_table_ratio(self):
-        return self.cities_table.dropna(subset=["dur_ratio"])[1:].head(20)
+        return self.cities_table.dropna(subset=["dur_ratio"])
 
     @property
     def cities_table_short(self):
