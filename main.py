@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     # head() doesn't sort DF, this has been done in the query
     #print(dur1.retrieve_cities(0.05))
-    print(dur1.draw_map())
+    dur1.draw_map()
 
     dur1.add_duration()
 

@@ -8,8 +8,10 @@ class CitiesRoutes:
     'Class impementing a general interaction with Google Map API to compute routes'
 
     def __init__(self, country_code='gb'):
-        self.country_code = country_code
+        self.country_code = country_code.lower()
         self.apikey = 'AIzaSyASv326cA584q9e707cOiyB_7_guhWdv_4'
+        self.geoloc_apikey = 'AIzaSyAVwaIzBIVu3X1NYccY17rTpTiAqaaJsfQ'
+
         self.cities_table = self.cities_table_init()
 
     def __len__(self):
@@ -45,6 +47,12 @@ class CitiesRoutes:
         destinations_formatted = loc_dest_raw.replace(' ', '+')
         chunk_size = 100
 
+        url_dest = f'https://maps.googleapis.com/maps/api/geocode/json?' \
+                   f'address={destinations_formatted}&key={self.apikey}'
+        req = urllib.request.urlopen(url_dest)
+        self.dest_coords = list(json.load(req)["results"][0]['geometry']['location'].values())
+
+
         def chunker(seq, size):
             return (seq[pos:pos + size] for pos in range(0, len(seq), size))
 
@@ -71,7 +79,10 @@ class CitiesRoutes:
 
         return duration
 
-    def add_duration(self):
+    def add_duration(self, is_percentile=True):
+        if is_percentile:
+            self.cities_table = self.retrieve_cities(percentile=0.05)
+
         # get coords list
         self.coords = self.cities_table["geopoint"].tolist()
 
