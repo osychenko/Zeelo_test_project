@@ -11,6 +11,7 @@ class CitiesRoutes:
         self.country_code = country_code.lower()
         self.apikey = 'AIzaSyASv326cA584q9e707cOiyB_7_guhWdv_4'
         self.geoloc_apikey = 'AIzaSyAVwaIzBIVu3X1NYccY17rTpTiAqaaJsfQ'
+        self.destination = 'Victoria Station, London'
 
         self.cities_table = self.cities_table_init()
 
@@ -43,15 +44,16 @@ class CitiesRoutes:
     def retrieve_cities(self, percentile=0.05):
         return self.cities_table.head(int(len(self)*percentile))
 
-    def get_duration(self, mode='driving', origins=None, loc_dest_raw='Victoria Station, London'):
-        destinations_formatted = loc_dest_raw.replace(' ', '+')
+    def get_duration(self, mode='driving', origins=None):
+        destinations_formatted = self.destination.replace(' ', '+')
         chunk_size = 100
 
+        # get coordinates of the destination
+        # might be needed to adjust the map, or for distancematrix
         url_dest = f'https://maps.googleapis.com/maps/api/geocode/json?' \
                    f'address={destinations_formatted}&key={self.apikey}'
         req = urllib.request.urlopen(url_dest)
         self.dest_coords = list(json.load(req)["results"][0]['geometry']['location'].values())
-
 
         def chunker(seq, size):
             return (seq[pos:pos + size] for pos in range(0, len(seq), size))
@@ -59,10 +61,17 @@ class CitiesRoutes:
         duration = []
 
         for chunk in chunker(origins, chunk_size):
-            origins_chunk_formatted = '|'.join(f'{x[0]},{x[1]}' for x in chunk)
+
+            if isinstance(chunk[0], list):
+                # if list of coordinate pairs [lat, lon]
+                origins_chunk_formatted = '|'.join(f'{x[0]},{x[1]}' for x in chunk)
+            else:
+                # if list of names
+                origins_chunk_formatted = '|'.join(f"{x.replace(' ', '+')},+{self.country_code}" for x in chunk)
 
             url = f'https://maps.googleapis.com/maps/api/distancematrix/json?' \
-                  f'origins={origins_chunk_formatted}&destinations={destinations_formatted}' \
+                  f'origins={origins_chunk_formatted}' \
+                  f'&destinations={destinations_formatted}' \
                   f'&key={self.apikey}&mode={mode}'
             request = urllib.request.urlopen(url)
 
@@ -83,11 +92,12 @@ class CitiesRoutes:
         if is_percentile:
             self.cities_table = self.retrieve_cities(percentile=0.05)
 
-        # get coords list
-        self.coords = self.cities_table["geopoint"].tolist()
+        # get coords or cities list
+        self.coords = self.cities_table['geopoint'].tolist()
+        self.city = self.cities_table['city'].tolist()
 
-        dur_driving = self.get_duration(origins=self.coords)
-        dur_transit = self.get_duration(mode="transit", origins=self.coords)
+        dur_driving = self.get_duration(origins=self.city)
+        dur_transit = self.get_duration(mode="transit", origins=self.city)
 
         self.cities_table["dur_driving_val"] = pd.Series([x["value"] if x is not None else np.nan for x in dur_driving])
         self.cities_table["dur_transit_val"] = pd.Series([x["value"] if x is not None else np.nan for x in dur_transit])
@@ -102,28 +112,55 @@ class CitiesRoutes:
         self.center_map = [self.cities_table['latitude'].mean(), self.cities_table['longitude'].mean()]
 
         self.m = folium.Map(
-            location=[45.372, -121.6972],
-            zoom_start=12,
-            tiles='Stamen Terrain'
+            location=self.center_map,
+            zoom_start=7
         )
 
-        folium.Marker(
-            location=[45.3288, -121.6625],
-            popup='Mt. Hood Meadows',
-            icon=folium.Icon(icon='cloud')
-        ).add_to(self.m)
+        def color_code(ratio):
+            if ratio is None:
+                return 'lightgray'
+            elif ratio > 1.35:
+                return 'darkgreen'
+            elif ratio > 1.15:
+                return 'green'
+            elif ratio > 1:
+                return 'lightgreen'
+            elif ratio > 0.85:
+                return 'lightred'
+            elif ratio > 0.65:
+                return 'red'
+            else:
+                return 'darkred'
 
-        folium.Marker(
-            location=[45.3311, -121.7113],
-            popup='Timberline Lodge',
-            icon=folium.Icon(color='green')
-        ).add_to(self.m)
+        def ratio_output(ratio):
+            if ratio is None:
+                return 'NO TRANSIT FOUND'
+            else:
+                return f'Ratio: {ratio:.2}'
 
-        folium.Marker(
-            location=[45.3300, -121.6823],
-            popup='Some Other Location',
-            icon=folium.Icon(color='red', icon='info-sign')
-        ).add_to(self.m)
+        def icon_code(ratio):
+            if ratio is None:
+                return 'question'
+            elif ratio > 1:
+                return 'bus'
+            else:
+                return 'car'
+
+        for index, row in self.cities_table.iterrows():
+            ratio = row['dur_ratio']
+
+            # check for unavailable transit routes
+            if ratio != ratio or np.isnan(ratio):
+                ratio = None
+            else:
+                ratio = round(ratio, 3)
+
+            folium.Marker(
+                location=row['geopoint'],
+                popup=f"City: {row['accentcity']}, {ratio_output(ratio)}",
+                icon=folium.Icon(color=color_code(ratio), icon=icon_code(ratio), prefix='fa')
+            ).add_to(self.m)
+
         self.m.save('map.html')
 
     @property

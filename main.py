@@ -28,11 +28,13 @@ Description:
 from googleroutes import CitiesRoutes
 
 if __name__ == '__main__':
-    dur1 = CitiesRoutes()
+    route1 = CitiesRoutes()
 
     # head() doesn't sort DF, this has been done in the query
     #print(dur1.retrieve_cities(0.05))
-    dur1.draw_map()
+    #dur1.draw_map()
+    print(route1.retrieve_cities())
 
-    dur1.add_duration()
+    route1.add_duration()
 
+    route1.draw_map()
