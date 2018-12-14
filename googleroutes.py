@@ -7,10 +7,14 @@ import folium
 class CitiesRoutes:
     'Class impementing a general interaction with Google Map API to compute routes'
 
-    def __init__(self, country_code='gb'):
+    def __init__(self, country_code='gb', apikey=None):
+        """
+        Lookup table for top 1000 cities is generated here in the constructor.
+        :param country_code:
+        """
         self.country_code = country_code.lower()
-        self.apikey = 'AIzaSyASv326cA584q9e707cOiyB_7_guhWdv_4'
-        self.geoloc_apikey = 'AIzaSyAVwaIzBIVu3X1NYccY17rTpTiAqaaJsfQ'
+        self.apikey = 'AIzaSyASv326cA584q9e707cOiyB_7_guhWdv_4' if apikey is None else apikey
+        #self.geoloc_apikey = 'AIzaSyAVwaIzBIVu3X1NYccY17rTpTiAqaaJsfQ'
         self.destination = 'Victoria Station, London'
 
         self.cities_table = self.cities_table_init()
@@ -108,7 +112,8 @@ class CitiesRoutes:
             lambda row: row["dur_driving_val"] / row["dur_transit_val"]
             if row.notnull().all() else None, axis=1)
 
-    def draw_map(self):
+    @property
+    def map(self):
         self.center_map = [self.cities_table['latitude'].mean(), self.cities_table['longitude'].mean()]
 
         self.m = folium.Map(
@@ -162,6 +167,7 @@ class CitiesRoutes:
             ).add_to(self.m)
 
         self.m.save('map.html')
+        return self.m
 
     @property
     def cities_table_ratio(self):

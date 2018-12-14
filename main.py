@@ -37,4 +37,4 @@ if __name__ == '__main__':
 
     route1.add_duration()
 
-    route1.draw_map()
+    map = route1.map
