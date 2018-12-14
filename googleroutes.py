@@ -7,19 +7,21 @@ import folium
 class CitiesRoutes:
     'Class impementing a general interaction with Google Map API to compute routes'
 
-    def __init__(self, country_code='gb', apikey=None):
+    def __init__(self, country_code: str='gb', apikey: str=None):
         """
-        Lookup table for top 1000 cities is generated here in the constructor.
-        :param country_code:
+        Lookup table for top (up to 1000) cities (ordeded by sort_param, default population),
+        is generated here in the constructor.
+ç       :param country_code: str code of a country, apikey: str Google Map API key
         """
         self.country_code = country_code.lower()
         self.apikey = 'AIzaSyASv326cA584q9e707cOiyB_7_guhWdv_4' if apikey is None else apikey
-        #self.geoloc_apikey = 'AIzaSyAVwaIzBIVu3X1NYccY17rTpTiAqaaJsfQ'
         self.destination = 'Victoria Station, London'
 
+        # table generated
         self.cities_table = self.cities_table_init()
 
     def __len__(self):
+        ''' Returns number of rows in underlying DataFrame'''
         return len(self.cities_table)
 
     def cities_table_init(self):
@@ -33,10 +35,6 @@ class CitiesRoutes:
 
         request = urllib.request.urlopen(url)
 
-        # dummy test
-        # dummy_output = '{"nhits": 17708, "parameters": {"dataset": ["worldcitiespop"], "refine": {"country": "gb"}, "timezone": "UTC", "rows": 10, "sort": ["population"], "format": "json", "facet": ["country"]}, "records": [{"datasetid": "worldcitiespop", "recordid": "1a3a09c6d9e88e2750844a8155b7bd2f52fd18d4", "fields": {"city": "london", "country": "gb", "region": "H9", "geopoint": [51.514125, -0.093689], "longitude": -0.093689, "latitude": 51.514125, "accentcity": "London", "population": 7421228}, "geometry": {"type": "Point", "coordinates": [-0.093689, 51.514125]}, "record_timestamp": "2018-01-08T11:47:45+00:00"}, {"datasetid": "worldcitiespop", "recordid": "854dc62297a50ffd882d92fb217ac4d9a4cf4681", "fields": {"city": "birmingham", "country": "gb", "region": "A7", "geopoint": [52.466667, -1.916667], "longitude": -1.916667, "latitude": 52.466667, "accentcity": "Birmingham", "population": 984336}, "geometry": {"type": "Point", "coordinates": [-1.916667, 52.466667]}, "record_timestamp": "2018-01-08T11:47:45+00:00"}, {"datasetid": "worldcitiespop", "recordid": "f9a3795d645c9a29cfc5622c0a55bea7b439d003", "fields": {"city": "glasgow", "country": "gb", "region": "V2", "geopoint": [55.833333, -4.25], "longitude": -4.25, "latitude": 55.833333, "accentcity": "Glasgow", "population": 610271}, "geometry": {"type": "Point", "coordinates": [-4.25, 55.833333]}, "record_timestamp": "2018-01-08T11:47:45+00:00"}, {"datasetid": "worldcitiespop", "recordid": "cda05e49431e24c9c96e9d26e50717e2c713a9d7", "fields": {"city": "belfast", "country": "gb", "region": "R3", "geopoint": [54.583333, -5.933333], "longitude": -5.933333, "latitude": 54.583333, "accentcity": "Belfast", "population": 585994}, "geometry": {"type": "Point", "coordinates": [-5.933333, 54.583333]}, "record_timestamp": "2018-01-08T11:47:45+00:00"}, {"datasetid": "worldcitiespop", "recordid": "c80ec7a8f224c0fbb3aedd1d557b0a96435338df", "fields": {"city": "liverpool", "country": "gb", "region": "H8", "geopoint": [53.416667, -3.0], "longitude": -3.0, "latitude": 53.416667, "accentcity": "Liverpool", "population": 468946}, "geometry": {"type": "Point", "coordinates": [-3.0, 53.416667]}, "record_timestamp": "2018-01-08T11:47:45+00:00"}, {"datasetid": "worldcitiespop", "recordid": "ee99264d6f1cf1ce5899eff305f94a170a032a40", "fields": {"city": "leeds", "country": "gb", "region": "H3", "geopoint": [53.8, -1.583333], "longitude": -1.583333, "latitude": 53.8, "accentcity": "Leeds", "population": 455124}, "geometry": {"type": "Point", "coordinates": [-1.583333, 53.8]}, "record_timestamp": "2018-01-08T11:47:45+00:00"}, {"datasetid": "worldcitiespop", "recordid": "08a62eff5ed1a878161e1073263116687bf1eb06", "fields": {"city": "sheffield", "country": "gb", "region": "L9", "geopoint": [53.366667, -1.5], "longitude": -1.5, "latitude": 53.366667, "accentcity": "Sheffield", "population": 447048}, "geometry": {"type": "Point", "coordinates": [-1.5, 53.366667]}, "record_timestamp": "2018-01-08T11:47:45+00:00"}, {"datasetid": "worldcitiespop", "recordid": "ba9eba66e0fbfebf0b8bb7ffd33557ff77908289", "fields": {"city": "edinburgh", "country": "gb", "region": "U8", "geopoint": [55.95, -3.2], "longitude": -3.2, "latitude": 55.95, "accentcity": "Edinburgh", "population": 435794}, "geometry": {"type": "Point", "coordinates": [-3.2, 55.95]}, "record_timestamp": "2018-01-08T11:47:45+00:00"}, {"datasetid": "worldcitiespop", "recordid": "0eab24a1db6886503460c5dc0451978359c60894", "fields": {"city": "bristol", "country": "gb", "region": "B7", "geopoint": [51.45, -2.583333], "longitude": -2.583333, "latitude": 51.45, "accentcity": "Bristol", "population": 430714}, "geometry": {"type": "Point", "coordinates": [-2.583333, 51.45]}, "record_timestamp": "2018-01-08T11:47:45+00:00"}, {"datasetid": "worldcitiespop", "recordid": "223f64707d5fc855036cdf4da1867c381c2448b8", "fields": {"city": "manchester", "country": "gb", "region": "I2", "geopoint": [53.5, -2.216667], "longitude": -2.216667, "latitude": 53.5, "accentcity": "Manchester", "population": 395516}, "geometry": {"type": "Point", "coordinates": [-2.216667, 53.5]}, "record_timestamp": "2018-01-08T11:47:45+00:00"}], "facet_groups": [{"name": "country", "facets": [{"name": "gb", "path": "gb", "count": 17708, "state": "refined"}]}]}'
-        # json_cities = json.loads(dummy_output)
-
         json_cities = json.load(request)
         results = json_cities.get('records')
 
@@ -45,10 +43,22 @@ class CitiesRoutes:
 
         return pd.DataFrame(results_fields).drop(drop_columns, axis=1).dropna(subset=['population'])
 
-    def retrieve_cities(self, percentile=0.05):
+    def retrieve_cities(self, percentile: float=0.05):
+        """ Get a float fraction of top rows in DataFrame
+        :param percentile: float between 0 and 1"""
         return self.cities_table.head(int(len(self)*percentile))
 
-    def get_duration(self, mode='driving', origins=None):
+    def get_duration(self, mode: str='driving', origins: list=None) -> list(dict):
+        """
+        Gets duration between self.destination and origins in chosen mode.
+        List origins will be splitted in chunks (default 100), since this is the current
+        limitation for request to Google Map API.
+        ** Practical suggestion ** Use correctly defined string addresses whenever possible
+        instead of coordinates, the probability to get ZERO_RESULTS are greatly reduced then.
+        :param mode: str transport mode (default driving)
+        :param origins: list (of str addresses or lists [lat, lon])
+        :return: list of dicts [{'value'=duration_value, 'text'=duration_text}]
+        """
         destinations_formatted = self.destination.replace(' ', '+')
         chunk_size = 100
 
@@ -93,6 +103,12 @@ class CitiesRoutes:
         return duration
 
     def add_duration(self, is_percentile=True):
+        """
+        Cut self.cities_table to leave top percentile fraction, add columns for duration
+        (as value in seconds and as text 'X hours Y minutes'), add column for ratio 'driving time / transit time'
+        :param is_percentile:
+        :return: None, updates cities_table
+        """
         if is_percentile:
             self.cities_table = self.retrieve_cities(percentile=0.05)
 
@@ -114,14 +130,23 @@ class CitiesRoutes:
 
     @property
     def map(self):
+        """
+        Generate Folium map with colors and icons of city labels coded,
+        centered in the mean of the coordinates of cities given.
+        Green for faster transit mode, the darker the faster (icon 'bus').
+        Red for faster driving mode, the darker the faster (icon 'car').
+        Ratio 'driving time / transit time' shown in labels.
+        Gray for undefined ratio (icon 'question').
+        :return: map.html, exposed as property
+        """
         self.center_map = [self.cities_table['latitude'].mean(), self.cities_table['longitude'].mean()]
 
         self.m = folium.Map(
             location=self.center_map,
-            zoom_start=7
+            zoom_start=6
         )
 
-        def color_code(ratio):
+        def color_code(ratio: float) -> str:
             if ratio is None:
                 return 'lightgray'
             elif ratio > 1.35:
@@ -137,19 +162,21 @@ class CitiesRoutes:
             else:
                 return 'darkred'
 
-        def ratio_output(ratio):
-            if ratio is None:
-                return 'NO TRANSIT FOUND'
-            else:
-                return f'Ratio: {ratio:.2}'
-
-        def icon_code(ratio):
+        def icon_code(ratio: float) -> str:
             if ratio is None:
                 return 'question'
             elif ratio > 1:
                 return 'bus'
             else:
                 return 'car'
+
+        def ratio_output(ratio: float) -> str:
+            if ratio is None:
+                return 'NO TRANSIT FOUND'
+            else:
+                return f'Ratio: {ratio:.2}'
+
+
 
         for index, row in self.cities_table.iterrows():
             ratio = row['dur_ratio']
@@ -160,6 +187,7 @@ class CitiesRoutes:
             else:
                 ratio = round(ratio, 3)
 
+            # add labels to map
             folium.Marker(
                 location=row['geopoint'],
                 popup=f"City: {row['accentcity']}, {ratio_output(ratio)}",
@@ -171,9 +199,11 @@ class CitiesRoutes:
 
     @property
     def cities_table_ratio(self):
+        """Utility function removing NA (arise when Distance Matrix API returns ZERO_RESULT)"""
         return self.cities_table.dropna(subset=["dur_ratio"])
 
     @property
     def cities_table_short(self):
-        columns_short = ['accentcity', 'geopoint', 'dur_ratio']
+        """Utility function reducing DataFrame to only used columns"""
+        columns_short = ['accentcity', 'city', 'geopoint', 'dur_ratio']
         return self.cities_table[columns_short]
