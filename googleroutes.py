@@ -71,12 +71,14 @@ class CitiesRoutes:
 
         return pd.DataFrame(results_fields).drop(drop_columns, axis=1).dropna(subset=['population'])
 
-    def retrieve_cities(self, percentile: float = 0.05):
+    def retrieve_cities(self, percentile: float = 0.05, is_verbose: bool = True):
         """ Get a float fraction of top rows in DataFrame
-        :param percentile: float between 0 and 1"""
+        :param percentile: float between 0 and 1
+        verbose - flush verbose data"""
         self.percentile = percentile
         df_output = self.cities_table.head(int(len(self) * self.percentile))
-        print(f'Cities shown: {len(df_output)}')
+        if is_verbose:
+            print(f'Cities shown: {len(df_output)}')
         return df_output
 
     def get_duration(self, mode: str = 'driving', origins: list = None) -> list:
@@ -137,28 +139,29 @@ class CitiesRoutes:
         (as value in seconds and as text 'X hours Y minutes'), add column for ratio 'driving time / transit time'
         :param percentile: take the top percentile fraction or the whole, if provided.
         Otherwise, 0.05 or any value given priorly in retrive_cities.
-        :return: None, updates cities_table
+        :return: None, updates cities_table to cities_table_duration
         """
         if percentile is None:
             self.percentile = self.percentile or 0.05
-            self.cities_table = self.retrieve_cities(self.percentile)
         else:
             self.percentile = percentile
-        print(f'Cities in the list: {len(self)}')
+
+        self.cities_table_duration = self.retrieve_cities(percentile=self.percentile, is_verbose=False).copy()
+        print(f'Cities in the list: {len(self.cities_table_duration)}')
 
         # get coords or cities list
-        self.coords = self.cities_table['geopoint'].tolist()
-        self.city = self.cities_table['city'].tolist()
+        self.coords = self.cities_table_duration['geopoint'].tolist()
+        self.city = self.cities_table_duration['city'].tolist()
 
         dur_driving = self.get_duration(origins=self.city)
         dur_transit = self.get_duration(mode="transit", origins=self.city)
 
-        self.cities_table["dur_driving_val"] = pd.Series([x["value"] if x is not None else np.nan for x in dur_driving])
-        self.cities_table["dur_transit_val"] = pd.Series([x["value"] if x is not None else np.nan for x in dur_transit])
-        self.cities_table["dur_driving_txt"] = pd.Series([x["text"] if x is not None else None for x in dur_driving])
-        self.cities_table["dur_transit_txt"] = pd.Series([x["text"] if x is not None else None for x in dur_transit])
+        self.cities_table_duration["dur_driving_val"] = pd.Series([x["value"] if x is not None else np.nan for x in dur_driving])
+        self.cities_table_duration["dur_transit_val"] = pd.Series([x["value"] if x is not None else np.nan for x in dur_transit])
+        self.cities_table_duration["dur_driving_txt"] = pd.Series([x["text"] if x is not None else None for x in dur_driving])
+        self.cities_table_duration["dur_transit_txt"] = pd.Series([x["text"] if x is not None else None for x in dur_transit])
 
-        self.cities_table["dur_ratio"] = self.cities_table.apply(
+        self.cities_table_duration["dur_ratio"] = self.cities_table_duration.apply(
             lambda row: row["dur_driving_val"] / row["dur_transit_val"]
             if row.notnull().all() else None, axis=1)
 
@@ -172,7 +175,8 @@ class CitiesRoutes:
         Gray for undefined ratio (icon 'question').
         :return: map.html, exposed as property
         """
-        self.center_map = [self.cities_table['latitude'].mean(), self.cities_table['longitude'].mean()]
+        self.center_map = [self.cities_table_duration['latitude'].mean(),
+                           self.cities_table_duration['longitude'].mean()]
 
         self.m = folium.Map(
             location=self.center_map,
@@ -209,7 +213,7 @@ class CitiesRoutes:
             else:
                 return f'Ratio: {ratio:.2}'
 
-        for index, row in self.cities_table.iterrows():
+        for index, row in self.cities_table_duration.iterrows():
             ratio = row['dur_ratio']
 
             # check for unavailable transit routes
@@ -229,12 +233,12 @@ class CitiesRoutes:
         return self.m
 
     @property
-    def cities_table_ratio(self):
+    def cities_table_duration_dropna(self):
         """ Utility function removing NA (arise when Distance Matrix API returns ZERO_RESULT)"""
-        return self.cities_table.dropna(subset=["dur_ratio"])
+        return self.cities_table_duration.dropna(subset=["dur_ratio"])
 
     @property
-    def cities_table_short(self):
+    def cities_table_duration_short(self):
         """ Utility function reducing DataFrame to only used columns"""
         columns_short = ['accentcity', 'city', 'geopoint', 'dur_ratio']
-        return self.cities_table[columns_short]
+        return self.cities_table_duration[columns_short]
