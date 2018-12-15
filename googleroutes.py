@@ -71,11 +71,16 @@ class CitiesRoutes:
 
         return pd.DataFrame(results_fields).drop(drop_columns, axis=1).dropna(subset=['population'])
 
-    def retrieve_cities(self, percentile: float = 0.05, is_verbose: bool = True):
+    def retrieve_cities(self, percentile: float = None, is_verbose: bool = True):
         """ Get a float fraction of top rows in DataFrame
         :param percentile: float between 0 and 1
         verbose - flush verbose data"""
-        self.percentile = percentile
+
+        if percentile is None:
+            self.percentile = self.percentile or 0.05
+        else:
+            self.percentile = percentile
+
         df_output = self.cities_table.head(int(len(self) * self.percentile))
         if is_verbose:
             print(f'Cities shown: {len(df_output)}')
