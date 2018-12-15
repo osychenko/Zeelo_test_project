@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script>L_PREFER_CANVAS=false; L_NO_TOUCH=false; L_DISABLE_3D=false;</script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.3.4/dist/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.3.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+    <meta name="viewport" content="width=device-width,
+        initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>#map_c0ec65800d9a45819b204cb0ed8103c7 {
+        position: relative;
+        width: 100.0%;
+        height: 100.0%;
+        left: 0.0%;
+        top: 0.0%;
+        }
+    </style>
+</head>
+<body>    
+    
+    <div class="folium-map" id="map_c0ec65800d9a45819b204cb0ed8103c7" ></div>
+</body>
+<script>    
+    
+    
+        var bounds = null;
+    
+
+    var map_c0ec65800d9a45819b204cb0ed8103c7 = L.map(
+        'map_c0ec65800d9a45819b204cb0ed8103c7', {
+        center: [52.891307930232564, -1.781803813953488],
+        zoom: 6,
+        maxBounds: bounds,
+        layers: [],
+        worldCopyJump: false,
+        crs: L.CRS.EPSG3857,
+        zoomControl: true,
+        });
+
+    
+    
+    var tile_layer_e4147ebf5beb489687320bba568f613a = L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+        "attribution": null,
+        "detectRetina": false,
+        "maxNativeZoom": 18,
+        "maxZoom": 18,
+        "minZoom": 0,
+        "noWrap": false,
+        "opacity": 1,
+        "subdomains": "abc",
+        "tms": false
+}).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+    
+        var marker_88e2c4095aa64789a97f1d318b640e14 = L.marker(
+            [51.514125, -0.093689],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_e11aefa31111422985ebf3ca89e5c400 = L.AwesomeMarkers.icon({
+                    icon: 'bus',
+                    iconColor: 'white',
+                    markerColor: 'darkgreen',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_88e2c4095aa64789a97f1d318b640e14.setIcon(icon_e11aefa31111422985ebf3ca89e5c400);
+            
+    
+            var popup_665d6be8e98f4935a834f7d7a06fe55c = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_f41675044bb54ce3b9285f3362c7882a = $(`<div id="html_f41675044bb54ce3b9285f3362c7882a" style="width: 100.0%; height: 100.0%;">City: London, Ratio: 2.9</div>`)[0];
+                popup_665d6be8e98f4935a834f7d7a06fe55c.setContent(html_f41675044bb54ce3b9285f3362c7882a);
+            
+
+            marker_88e2c4095aa64789a97f1d318b640e14.bindPopup(popup_665d6be8e98f4935a834f7d7a06fe55c)
+            ;
+
+            
+        
+    
+        var marker_308c69d1c9ff44d8af0295645dca80f2 = L.marker(
+            [52.466667, -1.916667],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_ea01909a3ff04e48ac963ba7b4ea4f09 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'darkred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_308c69d1c9ff44d8af0295645dca80f2.setIcon(icon_ea01909a3ff04e48ac963ba7b4ea4f09);
+            
+    
+            var popup_b1a96065399942dfb69327e82492f3a5 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_5dc774c3f99c4a89a8feb4da92a2ff4a = $(`<div id="html_5dc774c3f99c4a89a8feb4da92a2ff4a" style="width: 100.0%; height: 100.0%;">City: Birmingham, Ratio: 0.62</div>`)[0];
+                popup_b1a96065399942dfb69327e82492f3a5.setContent(html_5dc774c3f99c4a89a8feb4da92a2ff4a);
+            
+
+            marker_308c69d1c9ff44d8af0295645dca80f2.bindPopup(popup_b1a96065399942dfb69327e82492f3a5)
+            ;
+
+            
+        
+    
+        var marker_2223bb74783642e9a47b145fa7bbd0ae = L.marker(
+            [55.833333, -4.25],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_3695595cb7a34fd1872f34d3aa120f27 = L.AwesomeMarkers.icon({
+                    icon: 'bus',
+                    iconColor: 'white',
+                    markerColor: 'darkgreen',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_2223bb74783642e9a47b145fa7bbd0ae.setIcon(icon_3695595cb7a34fd1872f34d3aa120f27);
+            
+    
+            var popup_ef923a616a8e41a3b0083da157ee4836 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_73168f88a62f4f8ca7bb552d88425e51 = $(`<div id="html_73168f88a62f4f8ca7bb552d88425e51" style="width: 100.0%; height: 100.0%;">City: Glasgow, Ratio: 1.4</div>`)[0];
+                popup_ef923a616a8e41a3b0083da157ee4836.setContent(html_73168f88a62f4f8ca7bb552d88425e51);
+            
+
+            marker_2223bb74783642e9a47b145fa7bbd0ae.bindPopup(popup_ef923a616a8e41a3b0083da157ee4836)
+            ;
+
+            
+        
+    
+        var marker_be48d12128394ddca07bbab04e9b7e91 = L.marker(
+            [54.583333, -5.933333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_f36ed8bb588d4db4acdf3fb1a350822c = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'lightred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_be48d12128394ddca07bbab04e9b7e91.setIcon(icon_f36ed8bb588d4db4acdf3fb1a350822c);
+            
+    
+            var popup_84b349b42dfd46a1bebb5de4e86829b2 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_a0edc532662344b2831004a745f12e34 = $(`<div id="html_a0edc532662344b2831004a745f12e34" style="width: 100.0%; height: 100.0%;">City: Belfast, Ratio: 0.93</div>`)[0];
+                popup_84b349b42dfd46a1bebb5de4e86829b2.setContent(html_a0edc532662344b2831004a745f12e34);
+            
+
+            marker_be48d12128394ddca07bbab04e9b7e91.bindPopup(popup_84b349b42dfd46a1bebb5de4e86829b2)
+            ;
+
+            
+        
+    
+        var marker_74471622925f4f06add3916c5630a3f7 = L.marker(
+            [53.416667, -3.0],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_246a8261d8b3427ba8efaeea1f7a18ae = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_74471622925f4f06add3916c5630a3f7.setIcon(icon_246a8261d8b3427ba8efaeea1f7a18ae);
+            
+    
+            var popup_c2fc5e7befca45ac91c114677d4f36d7 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_9d62d829a1bc46c6bbf3d73c7945a6d8 = $(`<div id="html_9d62d829a1bc46c6bbf3d73c7945a6d8" style="width: 100.0%; height: 100.0%;">City: Liverpool, Ratio: 0.81</div>`)[0];
+                popup_c2fc5e7befca45ac91c114677d4f36d7.setContent(html_9d62d829a1bc46c6bbf3d73c7945a6d8);
+            
+
+            marker_74471622925f4f06add3916c5630a3f7.bindPopup(popup_c2fc5e7befca45ac91c114677d4f36d7)
+            ;
+
+            
+        
+    
+        var marker_2553d06beaba42a98e2abc51878410ef = L.marker(
+            [53.8, -1.583333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_4374e38972b247008b88da3a2222e5f0 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_2553d06beaba42a98e2abc51878410ef.setIcon(icon_4374e38972b247008b88da3a2222e5f0);
+            
+    
+            var popup_d4c1fb05d25b49d19c4fcfd4c81fbc96 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_3f60e5cbfc6a420b88b658029454c9de = $(`<div id="html_3f60e5cbfc6a420b88b658029454c9de" style="width: 100.0%; height: 100.0%;">City: Leeds, Ratio: 0.73</div>`)[0];
+                popup_d4c1fb05d25b49d19c4fcfd4c81fbc96.setContent(html_3f60e5cbfc6a420b88b658029454c9de);
+            
+
+            marker_2553d06beaba42a98e2abc51878410ef.bindPopup(popup_d4c1fb05d25b49d19c4fcfd4c81fbc96)
+            ;
+
+            
+        
+    
+        var marker_342bfcef1a52469e8085b1f66d951e2e = L.marker(
+            [53.366667, -1.5],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_52d8f141c55a43b9a8461e4b169f858c = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_342bfcef1a52469e8085b1f66d951e2e.setIcon(icon_52d8f141c55a43b9a8461e4b169f858c);
+            
+    
+            var popup_cb0578beb2dc4478b48d366dcdcb8b6c = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_4d2c80fe8ed54069ac9f1a35c59919e1 = $(`<div id="html_4d2c80fe8ed54069ac9f1a35c59919e1" style="width: 100.0%; height: 100.0%;">City: Sheffield, Ratio: 0.69</div>`)[0];
+                popup_cb0578beb2dc4478b48d366dcdcb8b6c.setContent(html_4d2c80fe8ed54069ac9f1a35c59919e1);
+            
+
+            marker_342bfcef1a52469e8085b1f66d951e2e.bindPopup(popup_cb0578beb2dc4478b48d366dcdcb8b6c)
+            ;
+
+            
+        
+    
+        var marker_992fc91b3ee9428493c4fb3fa081dee5 = L.marker(
+            [55.95, -3.2],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_f7bd737b59da4ffe82020e2a2ba7945d = L.AwesomeMarkers.icon({
+                    icon: 'bus',
+                    iconColor: 'white',
+                    markerColor: 'lightgreen',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_992fc91b3ee9428493c4fb3fa081dee5.setIcon(icon_f7bd737b59da4ffe82020e2a2ba7945d);
+            
+    
+            var popup_b218604b32514664b6d4b641553dc2f0 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_1e98f75ee8e141fa9471068693c93924 = $(`<div id="html_1e98f75ee8e141fa9471068693c93924" style="width: 100.0%; height: 100.0%;">City: Edinburgh, Ratio: 1.1</div>`)[0];
+                popup_b218604b32514664b6d4b641553dc2f0.setContent(html_1e98f75ee8e141fa9471068693c93924);
+            
+
+            marker_992fc91b3ee9428493c4fb3fa081dee5.bindPopup(popup_b218604b32514664b6d4b641553dc2f0)
+            ;
+
+            
+        
+    
+        var marker_5294a9b5f83847e3a251d1a857c3fde4 = L.marker(
+            [51.45, -2.583333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_43aef82666eb4fccbad93dacca25d8f2 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_5294a9b5f83847e3a251d1a857c3fde4.setIcon(icon_43aef82666eb4fccbad93dacca25d8f2);
+            
+    
+            var popup_e6d3d1d88c964cc896e3d80fea02496c = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_a4dffd3bb389416fb9abd9ad8121ce60 = $(`<div id="html_a4dffd3bb389416fb9abd9ad8121ce60" style="width: 100.0%; height: 100.0%;">City: Bristol, Ratio: 0.71</div>`)[0];
+                popup_e6d3d1d88c964cc896e3d80fea02496c.setContent(html_a4dffd3bb389416fb9abd9ad8121ce60);
+            
+
+            marker_5294a9b5f83847e3a251d1a857c3fde4.bindPopup(popup_e6d3d1d88c964cc896e3d80fea02496c)
+            ;
+
+            
+        
+    
+        var marker_ffeac216f5e6442f9239032bc875ac60 = L.marker(
+            [53.5, -2.216667],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_fc88488a8e8c450aaeb4b226498c5f2e = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'lightred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_ffeac216f5e6442f9239032bc875ac60.setIcon(icon_fc88488a8e8c450aaeb4b226498c5f2e);
+            
+    
+            var popup_d493b4a698704872a33903e0eacc87ac = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_d04a584db6c04852b310470d765fd187 = $(`<div id="html_d04a584db6c04852b310470d765fd187" style="width: 100.0%; height: 100.0%;">City: Manchester, Ratio: 0.9</div>`)[0];
+                popup_d493b4a698704872a33903e0eacc87ac.setContent(html_d04a584db6c04852b310470d765fd187);
+            
+
+            marker_ffeac216f5e6442f9239032bc875ac60.bindPopup(popup_d493b4a698704872a33903e0eacc87ac)
+            ;
+
+            
+        
+    
+        var marker_1f62bdc114614a51a826c08ecaa3bbe0 = L.marker(
+            [52.633333, -1.133333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_bdb6488084d3454f93df074c0b93bc60 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_1f62bdc114614a51a826c08ecaa3bbe0.setIcon(icon_bdb6488084d3454f93df074c0b93bc60);
+            
+    
+            var popup_9a4bddccde644146ab58a1b979075e30 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_7b33289c0102400990a8eaf90d01a463 = $(`<div id="html_7b33289c0102400990a8eaf90d01a463" style="width: 100.0%; height: 100.0%;">City: Leicester, Ratio: 0.82</div>`)[0];
+                popup_9a4bddccde644146ab58a1b979075e30.setContent(html_7b33289c0102400990a8eaf90d01a463);
+            
+
+            marker_1f62bdc114614a51a826c08ecaa3bbe0.bindPopup(popup_9a4bddccde644146ab58a1b979075e30)
+            ;
+
+            
+        
+    
+        var marker_ccecdc97f2b747f2a0a7b4255359ec0e = L.marker(
+            [52.664913, -1.034894],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_fe723a62ff0f4a5fa27ac68a1a4617e3 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_ccecdc97f2b747f2a0a7b4255359ec0e.setIcon(icon_fe723a62ff0f4a5fa27ac68a1a4617e3);
+            
+    
+            var popup_2b78418682174a5d90864163c8973569 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_d47b075c29364d2c8a891aa4793fa1d4 = $(`<div id="html_d47b075c29364d2c8a891aa4793fa1d4" style="width: 100.0%; height: 100.0%;">City: Leicester, Ratio: 0.82</div>`)[0];
+                popup_2b78418682174a5d90864163c8973569.setContent(html_d47b075c29364d2c8a891aa4793fa1d4);
+            
+
+            marker_ccecdc97f2b747f2a0a7b4255359ec0e.bindPopup(popup_2b78418682174a5d90864163c8973569)
+            ;
+
+            
+        
+    
+        var marker_ed2e2c22dd8e48bba948d7856b54833e = L.marker(
+            [52.416667, -1.55],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_70c05740e28342a388c76fadf7c04df9 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_ed2e2c22dd8e48bba948d7856b54833e.setIcon(icon_70c05740e28342a388c76fadf7c04df9);
+            
+    
+            var popup_8b57beb6c40c4ac08fd9a8bba4be2277 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_05045842854d4e3a9af81a7b8c99f35a = $(`<div id="html_05045842854d4e3a9af81a7b8c99f35a" style="width: 100.0%; height: 100.0%;">City: Coventry, Ratio: 0.67</div>`)[0];
+                popup_8b57beb6c40c4ac08fd9a8bba4be2277.setContent(html_05045842854d4e3a9af81a7b8c99f35a);
+            
+
+            marker_ed2e2c22dd8e48bba948d7856b54833e.bindPopup(popup_8b57beb6c40c4ac08fd9a8bba4be2277)
+            ;
+
+            
+        
+    
+        var marker_fa4dfa1593d3467e89aace3fd6f1d4a3 = L.marker(
+            [53.716667, -0.333333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_d3823acd57494f34bd9671bc398f65ff = L.AwesomeMarkers.icon({
+                    icon: 'bus',
+                    iconColor: 'white',
+                    markerColor: 'darkgreen',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_fa4dfa1593d3467e89aace3fd6f1d4a3.setIcon(icon_d3823acd57494f34bd9671bc398f65ff);
+            
+    
+            var popup_e57f549ef32547cea3e09b09c78aba43 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_eaa475b030084633af596608d5d85c36 = $(`<div id="html_eaa475b030084633af596608d5d85c36" style="width: 100.0%; height: 100.0%;">City: Kingston upon Hull, Ratio: 1.4</div>`)[0];
+                popup_e57f549ef32547cea3e09b09c78aba43.setContent(html_eaa475b030084633af596608d5d85c36);
+            
+
+            marker_fa4dfa1593d3467e89aace3fd6f1d4a3.bindPopup(popup_e57f549ef32547cea3e09b09c78aba43)
+            ;
+
+            
+        
+    
+        var marker_3f05ff1decbd49d0b8ff1299b085a9d2 = L.marker(
+            [51.5, -3.2],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_c0147c33ee0943c3b7114972473c1844 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_3f05ff1decbd49d0b8ff1299b085a9d2.setIcon(icon_c0147c33ee0943c3b7114972473c1844);
+            
+    
+            var popup_94cf53f6aba846ed80311f784e144f8a = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_88b928105d824aa9a15edc5b088934cd = $(`<div id="html_88b928105d824aa9a15edc5b088934cd" style="width: 100.0%; height: 100.0%;">City: Cardiff, Ratio: 0.78</div>`)[0];
+                popup_94cf53f6aba846ed80311f784e144f8a.setContent(html_88b928105d824aa9a15edc5b088934cd);
+            
+
+            marker_3f05ff1decbd49d0b8ff1299b085a9d2.bindPopup(popup_94cf53f6aba846ed80311f784e144f8a)
+            ;
+
+            
+        
+    
+        var marker_78e972910529426a9f0d7b98a5a61cf4 = L.marker(
+            [53.783333, -1.75],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_5f649120c6bc46d4b9a3fdcf2d47b361 = L.AwesomeMarkers.icon({
+                    icon: 'bus',
+                    iconColor: 'white',
+                    markerColor: 'lightgreen',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_78e972910529426a9f0d7b98a5a61cf4.setIcon(icon_5f649120c6bc46d4b9a3fdcf2d47b361);
+            
+    
+            var popup_2a70b6c71df9412da4ec2a4cfbeb8d4d = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_d62ffa45391b42a3b3dec1a18d9b3d2a = $(`<div id="html_d62ffa45391b42a3b3dec1a18d9b3d2a" style="width: 100.0%; height: 100.0%;">City: Bradford, Ratio: 1.1</div>`)[0];
+                popup_2a70b6c71df9412da4ec2a4cfbeb8d4d.setContent(html_d62ffa45391b42a3b3dec1a18d9b3d2a);
+            
+
+            marker_78e972910529426a9f0d7b98a5a61cf4.bindPopup(popup_2a70b6c71df9412da4ec2a4cfbeb8d4d)
+            ;
+
+            
+        
+    
+        var marker_fdf80e3b770847389884d89cde65bc74 = L.marker(
+            [53.0, -2.183333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_febb93560b964f4491ad166b0820ad17 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'darkred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_fdf80e3b770847389884d89cde65bc74.setIcon(icon_febb93560b964f4491ad166b0820ad17);
+            
+    
+            var popup_11d4d90caed6456bb121f74c14763c47 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_284bec4028c84f238a9f9c16c89a9962 = $(`<div id="html_284bec4028c84f238a9f9c16c89a9962" style="width: 100.0%; height: 100.0%;">City: Stoke-on-Trent, Ratio: 0.61</div>`)[0];
+                popup_11d4d90caed6456bb121f74c14763c47.setContent(html_284bec4028c84f238a9f9c16c89a9962);
+            
+
+            marker_fdf80e3b770847389884d89cde65bc74.bindPopup(popup_11d4d90caed6456bb121f74c14763c47)
+            ;
+
+            
+        
+    
+        var marker_c798ae403b8e4baaa7da7ead102b0acb = L.marker(
+            [52.583333, -2.133333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_a1c6889265084763a88c55a318a953e2 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'darkred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_c798ae403b8e4baaa7da7ead102b0acb.setIcon(icon_a1c6889265084763a88c55a318a953e2);
+            
+    
+            var popup_6723d55145364fa98b6dff185af7f7f1 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_67abac87392f4a35b82580c2558fbec6 = $(`<div id="html_67abac87392f4a35b82580c2558fbec6" style="width: 100.0%; height: 100.0%;">City: Wolverhampton, Ratio: 0.59</div>`)[0];
+                popup_6723d55145364fa98b6dff185af7f7f1.setContent(html_67abac87392f4a35b82580c2558fbec6);
+            
+
+            marker_c798ae403b8e4baaa7da7ead102b0acb.bindPopup(popup_6723d55145364fa98b6dff185af7f7f1)
+            ;
+
+            
+        
+    
+        var marker_83998ff973784708a297c860c44df9de = L.marker(
+            [50.396389, -4.138611],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_3a4da13b1b394b548280d65bbbb9fd4b = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_83998ff973784708a297c860c44df9de.setIcon(icon_3a4da13b1b394b548280d65bbbb9fd4b);
+            
+    
+            var popup_f121b3ece15044b895ade3b4b571f264 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_fcb0f8bdf39b4f38a383f4899ba4cef3 = $(`<div id="html_fcb0f8bdf39b4f38a383f4899ba4cef3" style="width: 100.0%; height: 100.0%;">City: Plymouth, Ratio: 0.67</div>`)[0];
+                popup_f121b3ece15044b895ade3b4b571f264.setContent(html_fcb0f8bdf39b4f38a383f4899ba4cef3);
+            
+
+            marker_83998ff973784708a297c860c44df9de.bindPopup(popup_f121b3ece15044b895ade3b4b571f264)
+            ;
+
+            
+        
+    
+        var marker_06ea83e2230b43b1a48a7510198461b8 = L.marker(
+            [52.966667, -1.166667],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_3d501f1b74b3432f871641f128f8ce8e = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_06ea83e2230b43b1a48a7510198461b8.setIcon(icon_3d501f1b74b3432f871641f128f8ce8e);
+            
+    
+            var popup_f38e062423ee42a8acaeb85051ef9d47 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_f3d05134b8674b15b15777f45e461f17 = $(`<div id="html_f3d05134b8674b15b15777f45e461f17" style="width: 100.0%; height: 100.0%;">City: Nottingham, Ratio: 0.69</div>`)[0];
+                popup_f38e062423ee42a8acaeb85051ef9d47.setContent(html_f3d05134b8674b15b15777f45e461f17);
+            
+
+            marker_06ea83e2230b43b1a48a7510198461b8.bindPopup(popup_f38e062423ee42a8acaeb85051ef9d47)
+            ;
+
+            
+        
+    
+        var marker_b6551cb95e1c43e1986b2c0aa5b12dae = L.marker(
+            [50.9, -1.4],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_73ef363806764b02862c7a67cd8c3b0e = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'darkred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_b6551cb95e1c43e1986b2c0aa5b12dae.setIcon(icon_73ef363806764b02862c7a67cd8c3b0e);
+            
+    
+            var popup_4b21335d96214ff6b8743b3ded879449 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_b80cbcdf9aaf4b5ca4dddabec3d8dfee = $(`<div id="html_b80cbcdf9aaf4b5ca4dddabec3d8dfee" style="width: 100.0%; height: 100.0%;">City: Southampton, Ratio: 0.54</div>`)[0];
+                popup_4b21335d96214ff6b8743b3ded879449.setContent(html_b80cbcdf9aaf4b5ca4dddabec3d8dfee);
+            
+
+            marker_b6551cb95e1c43e1986b2c0aa5b12dae.bindPopup(popup_4b21335d96214ff6b8743b3ded879449)
+            ;
+
+            
+        
+    
+        var marker_e86ababbebb4472c9fe9040934734b30 = L.marker(
+            [51.433333, -1.0],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_a3d65ee926d04afd918e1974250e50a2 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_e86ababbebb4472c9fe9040934734b30.setIcon(icon_a3d65ee926d04afd918e1974250e50a2);
+            
+    
+            var popup_fb23580a6f7f401bb2ac61a03cf58e13 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_d99a4d2c2837445d91bde9e94f626919 = $(`<div id="html_d99a4d2c2837445d91bde9e94f626919" style="width: 100.0%; height: 100.0%;">City: Reading, Ratio: 0.75</div>`)[0];
+                popup_fb23580a6f7f401bb2ac61a03cf58e13.setContent(html_d99a4d2c2837445d91bde9e94f626919);
+            
+
+            marker_e86ababbebb4472c9fe9040934734b30.bindPopup(popup_fb23580a6f7f401bb2ac61a03cf58e13)
+            ;
+
+            
+        
+    
+        var marker_d9325adacfc841699b6d1e3a3493c3e9 = L.marker(
+            [52.933333, -1.5],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_df2eceff4c1343529eca3267dbf1d90b = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'darkred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_d9325adacfc841699b6d1e3a3493c3e9.setIcon(icon_df2eceff4c1343529eca3267dbf1d90b);
+            
+    
+            var popup_a385a1e78c0a4532b6610b06e870fdad = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_cac0268e82114160a5f289271f8944e2 = $(`<div id="html_cac0268e82114160a5f289271f8944e2" style="width: 100.0%; height: 100.0%;">City: Derby, Ratio: 0.6</div>`)[0];
+                popup_a385a1e78c0a4532b6610b06e870fdad.setContent(html_cac0268e82114160a5f289271f8944e2);
+            
+
+            marker_d9325adacfc841699b6d1e3a3493c3e9.bindPopup(popup_a385a1e78c0a4532b6610b06e870fdad)
+            ;
+
+            
+        
+    
+        var marker_799ebca851c941beba260fc1685b4b9c = L.marker(
+            [52.5, -2.083333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_dcf92a92846f4165bc9f91ec48420838 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'darkred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_799ebca851c941beba260fc1685b4b9c.setIcon(icon_dcf92a92846f4165bc9f91ec48420838);
+            
+    
+            var popup_c0564961af034498bb8db6500d0bacc6 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_cf176d43702e44c69145fd9cef960cd6 = $(`<div id="html_cf176d43702e44c69145fd9cef960cd6" style="width: 100.0%; height: 100.0%;">City: Dudley, Ratio: 0.57</div>`)[0];
+                popup_c0564961af034498bb8db6500d0bacc6.setContent(html_cf176d43702e44c69145fd9cef960cd6);
+            
+
+            marker_799ebca851c941beba260fc1685b4b9c.bindPopup(popup_c0564961af034498bb8db6500d0bacc6)
+            ;
+
+            
+        
+    
+        var marker_2f8af89c2ca24cf59357036c76b3bc87 = L.marker(
+            [52.25, -0.883333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_6e9d9ddf365d4ae195796679ae7d30a0 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_2f8af89c2ca24cf59357036c76b3bc87.setIcon(icon_6e9d9ddf365d4ae195796679ae7d30a0);
+            
+    
+            var popup_a532896dcd554dd4b0717043aeb9dfce = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_496b60a7e18a471b87ac051f8513e16b = $(`<div id="html_496b60a7e18a471b87ac051f8513e16b" style="width: 100.0%; height: 100.0%;">City: Northampton, Ratio: 0.71</div>`)[0];
+                popup_a532896dcd554dd4b0717043aeb9dfce.setContent(html_496b60a7e18a471b87ac051f8513e16b);
+            
+
+            marker_2f8af89c2ca24cf59357036c76b3bc87.bindPopup(popup_a532896dcd554dd4b0717043aeb9dfce)
+            ;
+
+            
+        
+    
+        var marker_e484d3fccc1e4cb4947926ee10df0f01 = L.marker(
+            [50.7967, -1.083333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_76d8b8fd76fa4a92b36daa76c305f4d9 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'darkred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_e484d3fccc1e4cb4947926ee10df0f01.setIcon(icon_76d8b8fd76fa4a92b36daa76c305f4d9);
+            
+    
+            var popup_0a318c885b61450cace47b0bef7cd495 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_387ec90f62ee402a9515f0813152446a = $(`<div id="html_387ec90f62ee402a9515f0813152446a" style="width: 100.0%; height: 100.0%;">City: Portsmouth, Ratio: 0.44</div>`)[0];
+                popup_0a318c885b61450cace47b0bef7cd495.setContent(html_387ec90f62ee402a9515f0813152446a);
+            
+
+            marker_e484d3fccc1e4cb4947926ee10df0f01.bindPopup(popup_0a318c885b61450cace47b0bef7cd495)
+            ;
+
+            
+        
+    
+        var marker_d1a8172391334afe993905d3791f6770 = L.marker(
+            [51.883333, -0.416667],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_e12eb621b8964b6b9a55f11d67abff28 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'lightred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_d1a8172391334afe993905d3791f6770.setIcon(icon_e12eb621b8964b6b9a55f11d67abff28);
+            
+    
+            var popup_6facd02470584b5fbd675cbbdd45b1e8 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_3926358e62b54ecfb4fba66898b60677 = $(`<div id="html_3926358e62b54ecfb4fba66898b60677" style="width: 100.0%; height: 100.0%;">City: Luton, Ratio: 0.97</div>`)[0];
+                popup_6facd02470584b5fbd675cbbdd45b1e8.setContent(html_3926358e62b54ecfb4fba66898b60677);
+            
+
+            marker_d1a8172391334afe993905d3791f6770.bindPopup(popup_6facd02470584b5fbd675cbbdd45b1e8)
+            ;
+
+            
+        
+    
+        var marker_fd1fe305f4ca482ebb10c1072de7831e = L.marker(
+            [54.988056, -1.619444],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_56a7ad3100dd4c949e84e6264d388312 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'lightred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_fd1fe305f4ca482ebb10c1072de7831e.setIcon(icon_56a7ad3100dd4c949e84e6264d388312);
+            
+    
+            var popup_7075d29a75294154934a29b8d96a7a91 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_59fa7b26e0124dd4bd0e3f5cf6574ace = $(`<div id="html_59fa7b26e0124dd4bd0e3f5cf6574ace" style="width: 100.0%; height: 100.0%;">City: Newcastle upon Tyne, Ratio: 0.87</div>`)[0];
+                popup_7075d29a75294154934a29b8d96a7a91.setContent(html_59fa7b26e0124dd4bd0e3f5cf6574ace);
+            
+
+            marker_fd1fe305f4ca482ebb10c1072de7831e.bindPopup(popup_7075d29a75294154934a29b8d96a7a91)
+            ;
+
+            
+        
+    
+        var marker_3ba0c3a477ce46d098d95b36b1e592db = L.marker(
+            [53.766667, -2.716667],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_d70dabf2688648b78a0d91ccf70458cc = L.AwesomeMarkers.icon({
+                    icon: 'question',
+                    iconColor: 'white',
+                    markerColor: 'lightgray',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_3ba0c3a477ce46d098d95b36b1e592db.setIcon(icon_d70dabf2688648b78a0d91ccf70458cc);
+            
+    
+            var popup_09d2c9d07d8741d68b009e6fda75003b = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_cc3d58b10b94495d96cdd1cfd5199ec9 = $(`<div id="html_cc3d58b10b94495d96cdd1cfd5199ec9" style="width: 100.0%; height: 100.0%;">City: Preston, NO TRANSIT FOUND</div>`)[0];
+                popup_09d2c9d07d8741d68b009e6fda75003b.setContent(html_cc3d58b10b94495d96cdd1cfd5199ec9);
+            
+
+            marker_3ba0c3a477ce46d098d95b36b1e592db.bindPopup(popup_09d2c9d07d8741d68b009e6fda75003b)
+            ;
+
+            
+        
+    
+        var marker_43808757a9434bacbe8999062b45729e = L.marker(
+            [57.133333, -2.1],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_1c3bbf3e284647dbb9dc22c362195f64 = L.AwesomeMarkers.icon({
+                    icon: 'bus',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_43808757a9434bacbe8999062b45729e.setIcon(icon_1c3bbf3e284647dbb9dc22c362195f64);
+            
+    
+            var popup_7a0d31f49e7d434aa4a5f28820a51ecb = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_288a0e2240ea4f8a8bb41422d65f5ac6 = $(`<div id="html_288a0e2240ea4f8a8bb41422d65f5ac6" style="width: 100.0%; height: 100.0%;">City: Aberdeen, Ratio: 1.3</div>`)[0];
+                popup_7a0d31f49e7d434aa4a5f28820a51ecb.setContent(html_288a0e2240ea4f8a8bb41422d65f5ac6);
+            
+
+            marker_43808757a9434bacbe8999062b45729e.bindPopup(popup_7a0d31f49e7d434aa4a5f28820a51ecb)
+            ;
+
+            
+        
+    
+        var marker_3c191cde3ae64b66b73dc7d01f046d42 = L.marker(
+            [54.911944, -1.383333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_828ca173296d4ed29e9536dc115178fe = L.AwesomeMarkers.icon({
+                    icon: 'bus',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_3c191cde3ae64b66b73dc7d01f046d42.setIcon(icon_828ca173296d4ed29e9536dc115178fe);
+            
+    
+            var popup_60f3b499655d4a209fe6aeb204f1c65d = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_0c243dbbb6d14fe3b1613be7e69bfd4c = $(`<div id="html_0c243dbbb6d14fe3b1613be7e69bfd4c" style="width: 100.0%; height: 100.0%;">City: Sunderland, Ratio: 1.2</div>`)[0];
+                popup_60f3b499655d4a209fe6aeb204f1c65d.setContent(html_0c243dbbb6d14fe3b1613be7e69bfd4c);
+            
+
+            marker_3c191cde3ae64b66b73dc7d01f046d42.bindPopup(popup_60f3b499655d4a209fe6aeb204f1c65d)
+            ;
+
+            
+        
+    
+        var marker_2d47766db8054fa2938a3a653199dadf = L.marker(
+            [52.633333, 1.3],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_f1ecf5bf3831450fa1f3402c27fa95bf = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'darkred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_2d47766db8054fa2938a3a653199dadf.setIcon(icon_f1ecf5bf3831450fa1f3402c27fa95bf);
+            
+    
+            var popup_5941c17780cb4a9a8d2096ee2980bbf6 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_11a55689cf744b67a2b64459acc84f20 = $(`<div id="html_11a55689cf744b67a2b64459acc84f20" style="width: 100.0%; height: 100.0%;">City: Norwich, Ratio: 0.61</div>`)[0];
+                popup_5941c17780cb4a9a8d2096ee2980bbf6.setContent(html_11a55689cf744b67a2b64459acc84f20);
+            
+
+            marker_2d47766db8054fa2938a3a653199dadf.bindPopup(popup_5941c17780cb4a9a8d2096ee2980bbf6)
+            ;
+
+            
+        
+    
+        var marker_f706892262a74fcabb91608d06d5c19c = L.marker(
+            [50.716667, -1.883333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_5f4340bf78c6422ead3387bf9caa7d34 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_f706892262a74fcabb91608d06d5c19c.setIcon(icon_5f4340bf78c6422ead3387bf9caa7d34);
+            
+    
+            var popup_10ac1b2d2bcb4002bf55e610d6a44a4c = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_5bc28c9ff9e94a8a8e4bb420163159a3 = $(`<div id="html_5bc28c9ff9e94a8a8e4bb420163159a3" style="width: 100.0%; height: 100.0%;">City: Bournemouth, Ratio: 0.72</div>`)[0];
+                popup_10ac1b2d2bcb4002bf55e610d6a44a4c.setContent(html_5bc28c9ff9e94a8a8e4bb420163159a3);
+            
+
+            marker_f706892262a74fcabb91608d06d5c19c.bindPopup(popup_10ac1b2d2bcb4002bf55e610d6a44a4c)
+            ;
+
+            
+        
+    
+        var marker_e5d57183e1024c70b6cd920cf7c8e0a9 = L.marker(
+            [52.6, -2.0],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_e7cb0d3326cb45edab243c5cefe7d8d6 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_e5d57183e1024c70b6cd920cf7c8e0a9.setIcon(icon_e7cb0d3326cb45edab243c5cefe7d8d6);
+            
+    
+            var popup_807eff5e0fc34f50ac5e7bb03ea9226e = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_a10ac598c17f45349cd7f04e4b30ca64 = $(`<div id="html_a10ac598c17f45349cd7f04e4b30ca64" style="width: 100.0%; height: 100.0%;">City: Walsall, Ratio: 0.84</div>`)[0];
+                popup_807eff5e0fc34f50ac5e7bb03ea9226e.setContent(html_a10ac598c17f45349cd7f04e4b30ca64);
+            
+
+            marker_e5d57183e1024c70b6cd920cf7c8e0a9.bindPopup(popup_807eff5e0fc34f50ac5e7bb03ea9226e)
+            ;
+
+            
+        
+    
+        var marker_ccaec72e28fa471aa1cccd3e003134de = L.marker(
+            [51.633333, -3.966667],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_0d09c3a883e7402dbbe413acc4fae3eb = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_ccaec72e28fa471aa1cccd3e003134de.setIcon(icon_0d09c3a883e7402dbbe413acc4fae3eb);
+            
+    
+            var popup_3c0f29b9f1fd474fbe63efa34a6ca113 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_d68a798f3fa940fdbcec506bda5614ab = $(`<div id="html_d68a798f3fa940fdbcec506bda5614ab" style="width: 100.0%; height: 100.0%;">City: Swansea, Ratio: 0.65</div>`)[0];
+                popup_3c0f29b9f1fd474fbe63efa34a6ca113.setContent(html_d68a798f3fa940fdbcec506bda5614ab);
+            
+
+            marker_ccaec72e28fa471aa1cccd3e003134de.bindPopup(popup_3c0f29b9f1fd474fbe63efa34a6ca113)
+            ;
+
+            
+        
+    
+        var marker_f8d98471a5b44f7692329c5b1c36c60a = L.marker(
+            [51.533333, 0.7],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_59bd477794c34db7b7fb48050118a440 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'darkred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_f8d98471a5b44f7692329c5b1c36c60a.setIcon(icon_59bd477794c34db7b7fb48050118a440);
+            
+    
+            var popup_073dc5f73c57498ca69dc46f28707e43 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_00124f43212843669b94b3a4f8c1a230 = $(`<div id="html_00124f43212843669b94b3a4f8c1a230" style="width: 100.0%; height: 100.0%;">City: Southend-on-Sea, Ratio: 0.38</div>`)[0];
+                popup_073dc5f73c57498ca69dc46f28707e43.setContent(html_00124f43212843669b94b3a4f8c1a230);
+            
+
+            marker_f8d98471a5b44f7692329c5b1c36c60a.bindPopup(popup_073dc5f73c57498ca69dc46f28707e43)
+            ;
+
+            
+        
+    
+        var marker_09c4a9a8e0464474afd9c67a1d6ba940 = L.marker(
+            [51.516667, -1.783333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_86851512eeea4277bdfcc371e3945dfa = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_09c4a9a8e0464474afd9c67a1d6ba940.setIcon(icon_86851512eeea4277bdfcc371e3945dfa);
+            
+    
+            var popup_49af83b934f04f2d9957012669d25651 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_fb3e2d787dbb4a67b128e92c1b96b740 = $(`<div id="html_fb3e2d787dbb4a67b128e92c1b96b740" style="width: 100.0%; height: 100.0%;">City: Swindon, Ratio: 0.81</div>`)[0];
+                popup_49af83b934f04f2d9957012669d25651.setContent(html_fb3e2d787dbb4a67b128e92c1b96b740);
+            
+
+            marker_09c4a9a8e0464474afd9c67a1d6ba940.bindPopup(popup_49af83b934f04f2d9957012669d25651)
+            ;
+
+            
+        
+    
+        var marker_712c54d7a1e74b619c3ceb800a80bded = L.marker(
+            [51.75, -1.25],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_abffa4b8be9e4ba5bec2a2bb8270ef8c = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_712c54d7a1e74b619c3ceb800a80bded.setIcon(icon_abffa4b8be9e4ba5bec2a2bb8270ef8c);
+            
+    
+            var popup_5d2fd55e8cd345e4a61ecf56ec8f9cb4 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_49427d408b1f4e2080848b766b38941e = $(`<div id="html_49427d408b1f4e2080848b766b38941e" style="width: 100.0%; height: 100.0%;">City: Oxford, Ratio: 0.85</div>`)[0];
+                popup_5d2fd55e8cd345e4a61ecf56ec8f9cb4.setContent(html_49427d408b1f4e2080848b766b38941e);
+            
+
+            marker_712c54d7a1e74b619c3ceb800a80bded.bindPopup(popup_5d2fd55e8cd345e4a61ecf56ec8f9cb4)
+            ;
+
+            
+        
+    
+        var marker_979ac426ea9f4888a75b71a1487554c8 = L.marker(
+            [56.5, -2.966667],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_be5e378fe56c4df79076ec94da57f347 = L.AwesomeMarkers.icon({
+                    icon: 'bus',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_979ac426ea9f4888a75b71a1487554c8.setIcon(icon_be5e378fe56c4df79076ec94da57f347);
+            
+    
+            var popup_8958bd95ce3f4975a7aba79161c0388d = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_342ec8045445452e8c442de1bf81d603 = $(`<div id="html_342ec8045445452e8c442de1bf81d603" style="width: 100.0%; height: 100.0%;">City: Dundee, Ratio: 1.2</div>`)[0];
+                popup_8958bd95ce3f4975a7aba79161c0388d.setContent(html_342ec8045445452e8c442de1bf81d603);
+            
+
+            marker_979ac426ea9f4888a75b71a1487554c8.bindPopup(popup_8958bd95ce3f4975a7aba79161c0388d)
+            ;
+
+            
+        
+    
+        var marker_48f9ac5b0c064fb1b1e1f95d7edf0636 = L.marker(
+            [50.716667, -2.0],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_122efe61a62f46d6a9c0b67db5d98655 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_48f9ac5b0c064fb1b1e1f95d7edf0636.setIcon(icon_122efe61a62f46d6a9c0b67db5d98655);
+            
+    
+            var popup_0197fbe3fc774b02b078b37c8af8a168 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_0343264ae7044dcb8255037a0a210c71 = $(`<div id="html_0343264ae7044dcb8255037a0a210c71" style="width: 100.0%; height: 100.0%;">City: Poole, Ratio: 0.68</div>`)[0];
+                popup_0197fbe3fc774b02b078b37c8af8a168.setContent(html_0343264ae7044dcb8255037a0a210c71);
+            
+
+            marker_48f9ac5b0c064fb1b1e1f95d7edf0636.bindPopup(popup_0197fbe3fc774b02b078b37c8af8a168)
+            ;
+
+            
+        
+    
+        var marker_df9bcb955d7242c7862e57fe09c3a21e = L.marker(
+            [53.65, -1.783333],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_b0fbb8102a2345c9acc1a948d8643d8d = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_df9bcb955d7242c7862e57fe09c3a21e.setIcon(icon_b0fbb8102a2345c9acc1a948d8643d8d);
+            
+    
+            var popup_46c5f4484fd548d5b8f2ef699c81e89f = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_44913933dc5f4689b7eeb13fa3ad57e7 = $(`<div id="html_44913933dc5f4689b7eeb13fa3ad57e7" style="width: 100.0%; height: 100.0%;">City: Huddersfield, Ratio: 0.68</div>`)[0];
+                popup_46c5f4484fd548d5b8f2ef699c81e89f.setContent(html_44913933dc5f4689b7eeb13fa3ad57e7);
+            
+
+            marker_df9bcb955d7242c7862e57fe09c3a21e.bindPopup(popup_46c5f4484fd548d5b8f2ef699c81e89f)
+            ;
+
+            
+        
+    
+        var marker_056bc60da1444d5b85815f8578a4424f = L.marker(
+            [53.954115, -1.064262],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_b5134fa079884fe9a291748b8f98c3d1 = L.AwesomeMarkers.icon({
+                    icon: 'bus',
+                    iconColor: 'white',
+                    markerColor: 'darkgreen',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_056bc60da1444d5b85815f8578a4424f.setIcon(icon_b5134fa079884fe9a291748b8f98c3d1);
+            
+    
+            var popup_516326845d324e77a2a9b889013889a3 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_144560dfc53e4a24b613b64ed5a765f2 = $(`<div id="html_144560dfc53e4a24b613b64ed5a765f2" style="width: 100.0%; height: 100.0%;">City: York, Ratio: 1.5</div>`)[0];
+                popup_516326845d324e77a2a9b889013889a3.setContent(html_144560dfc53e4a24b613b64ed5a765f2);
+            
+
+            marker_056bc60da1444d5b85815f8578a4424f.bindPopup(popup_516326845d324e77a2a9b889013889a3)
+            ;
+
+            
+        
+    
+        var marker_bb661fc528e24ccf804c6505eefccc32 = L.marker(
+            [52.083333, 1.166667],
+            {
+                icon: new L.Icon.Default()
+                }
+            ).addTo(map_c0ec65800d9a45819b204cb0ed8103c7);
+        
+    
+
+                var icon_77ffb85298094d8ba28106698bbf1e21 = L.AwesomeMarkers.icon({
+                    icon: 'car',
+                    iconColor: 'white',
+                    markerColor: 'darkred',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_bb661fc528e24ccf804c6505eefccc32.setIcon(icon_77ffb85298094d8ba28106698bbf1e21);
+            
+    
+            var popup_b171bc1c30b344b9ae734c96441cf0b3 = L.popup({maxWidth: '300'
+            
+            });
+
+            
+                var html_2d21bd2f3c81485e9094dd6bcb56544d = $(`<div id="html_2d21bd2f3c81485e9094dd6bcb56544d" style="width: 100.0%; height: 100.0%;">City: Ipswich, Ratio: 0.59</div>`)[0];
+                popup_b171bc1c30b344b9ae734c96441cf0b3.setContent(html_2d21bd2f3c81485e9094dd6bcb56544d);
+            
+
+            marker_bb661fc528e24ccf804c6505eefccc32.bindPopup(popup_b171bc1c30b344b9ae734c96441cf0b3)
+            ;
+
+            
+        
+</script>
