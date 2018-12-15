@@ -1,21 +1,47 @@
+__author__ = "Oleg Osychenko"
+__copyright__ = "Copyright 2018, Zeelo test project"
+__credits__ = ["Zeelo developers"]
+__license__ = "MIT"
+__version__ = "1.0.1"
+__maintainer__ = "Oleg Osychenko"
+__email__ = "osychenko@gmail.com"
+__status__ = "Development"
+
+"""Module documentation
+-----------------------
+Requirements:
+    python 3.6 or newer
+Packages:
+    urllib
+    json
+    pandas
+    numpy
+    folium
+-----------------------
+Description:
+Class to generate driving/transit time ratio (or a similar combination of modes) for a given country. 
+The list is loaded into pd.DataFrame, sorted by parameter (default population) in the query to API, 
+no pandas-related sorting is used. 
+"""
+
 import urllib.request
 import json
 import pandas as pd
 import numpy as np
 import folium
 
+
 class CitiesRoutes:
-    'Class impementing a general interaction with Google Map API to compute routes'
+    """Class impementing a general interaction with Google Map API to compute travel times"""
 
     def __init__(self, country_code: str = 'gb', apikey: str = None):
-        """
-        Lookup table for top (up to 1000) cities (ordeded by sort_param, default population),
+        """ Lookup table for top (up to 1000) cities (ordeded by sort_param, default population),
         is generated here in the constructor.
 ç       :param country_code: str code of a country, apikey: str Google Map API key
         """
         self.country_code: str = country_code.lower()
-        self.apikey : str = 'AIzaSyASv326cA584q9e707cOiyB_7_guhWdv_4' if apikey is None else apikey
-        self.destination : str or list = 'Victoria Station, London'
+        self.apikey: str = 'AIzaSyASv326cA584q9e707cOiyB_7_guhWdv_4' if apikey is None else apikey
+        self.destination: str or list = 'Victoria Station, London'
 
         # table generated
         self.cities_table: pd.DataFrame = self.cities_table_init()
@@ -23,7 +49,7 @@ class CitiesRoutes:
         self.percentile: float = None
 
     def __len__(self):
-        ''' Returns number of rows in underlying DataFrame'''
+        """ Returns number of rows in underlying DataFrame"""
         return len(self.cities_table)
 
     def cities_table_init(self):
@@ -49,11 +75,12 @@ class CitiesRoutes:
         """ Get a float fraction of top rows in DataFrame
         :param percentile: float between 0 and 1"""
         self.percentile = percentile
-        return self.cities_table.head(int(len(self)*self.percentile))
+        df_output = self.cities_table.head(int(len(self) * self.percentile))
+        print(f'Cities shown: {len(df_output)}')
+        return df_output
 
     def get_duration(self, mode: str = 'driving', origins: list = None) -> list:
-        """
-        Gets duration between self.destination and origins in chosen mode.
+        """ Gets duration between self.destination and origins in chosen mode.
         List origins will be splitted in chunks (default 100), since this is the current
         limitation for request to Google Map API.
         ** Practical suggestion ** Use correctly defined string addresses whenever possible
@@ -106,15 +133,18 @@ class CitiesRoutes:
         return duration
 
     def add_duration(self, percentile=None):
-        """
-        Cut self.cities_table to leave top percentile fraction, add columns for duration
+        """ Cut self.cities_table to leave top percentile fraction, add columns for duration
         (as value in seconds and as text 'X hours Y minutes'), add column for ratio 'driving time / transit time'
-        :param is_percentile: if take the top percentile fraction or the whole
+        :param percentile: take the top percentile fraction or the whole, if provided.
+        Otherwise, 0.05 or any value given priorly in retrive_cities.
         :return: None, updates cities_table
         """
         if percentile is None:
             self.percentile = self.percentile or 0.05
             self.cities_table = self.retrieve_cities(self.percentile)
+        else:
+            self.percentile = percentile
+        print(f'Cities in the list: {len(self)}')
 
         # get coords or cities list
         self.coords = self.cities_table['geopoint'].tolist()
@@ -133,9 +163,8 @@ class CitiesRoutes:
             if row.notnull().all() else None, axis=1)
 
     @property
-    def map(self):
-        """
-        Generate Folium map with colors and icons of city labels coded,
+    def folium_map(self):
+        """ Generate Folium map with colors and icons of city labels coded,
         centered in the mean of the coordinates of cities given.
         Green for faster transit mode, the darker the faster (icon 'bus').
         Red for faster driving mode, the darker the faster (icon 'car').
@@ -180,8 +209,6 @@ class CitiesRoutes:
             else:
                 return f'Ratio: {ratio:.2}'
 
-
-
         for index, row in self.cities_table.iterrows():
             ratio = row['dur_ratio']
 
@@ -198,16 +225,16 @@ class CitiesRoutes:
                 icon=folium.Icon(color=color_code(ratio), icon=icon_code(ratio), prefix='fa')
             ).add_to(self.m)
 
-        self.m.save('map.html')
+        self.m.save('folium_map.html')
         return self.m
 
     @property
     def cities_table_ratio(self):
-        """Utility function removing NA (arise when Distance Matrix API returns ZERO_RESULT)"""
+        """ Utility function removing NA (arise when Distance Matrix API returns ZERO_RESULT)"""
         return self.cities_table.dropna(subset=["dur_ratio"])
 
     @property
     def cities_table_short(self):
-        """Utility function reducing DataFrame to only used columns"""
+        """ Utility function reducing DataFrame to only used columns"""
         columns_short = ['accentcity', 'city', 'geopoint', 'dur_ratio']
         return self.cities_table[columns_short]
