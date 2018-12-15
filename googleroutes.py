@@ -7,18 +7,20 @@ import folium
 class CitiesRoutes:
     'Class impementing a general interaction with Google Map API to compute routes'
 
-    def __init__(self, country_code: str='gb', apikey: str=None):
+    def __init__(self, country_code: str = 'gb', apikey: str = None):
         """
         Lookup table for top (up to 1000) cities (ordeded by sort_param, default population),
         is generated here in the constructor.
 ç       :param country_code: str code of a country, apikey: str Google Map API key
         """
-        self.country_code = country_code.lower()
-        self.apikey = 'AIzaSyASv326cA584q9e707cOiyB_7_guhWdv_4' if apikey is None else apikey
-        self.destination = 'Victoria Station, London'
+        self.country_code: str = country_code.lower()
+        self.apikey : str = 'AIzaSyASv326cA584q9e707cOiyB_7_guhWdv_4' if apikey is None else apikey
+        self.destination : str or list = 'Victoria Station, London'
 
         # table generated
-        self.cities_table = self.cities_table_init()
+        self.cities_table: pd.DataFrame = self.cities_table_init()
+
+        self.percentile: float = None
 
     def __len__(self):
         ''' Returns number of rows in underlying DataFrame'''
@@ -43,12 +45,13 @@ class CitiesRoutes:
 
         return pd.DataFrame(results_fields).drop(drop_columns, axis=1).dropna(subset=['population'])
 
-    def retrieve_cities(self, percentile: float=0.05):
+    def retrieve_cities(self, percentile: float = 0.05):
         """ Get a float fraction of top rows in DataFrame
         :param percentile: float between 0 and 1"""
-        return self.cities_table.head(int(len(self)*percentile))
+        self.percentile = percentile
+        return self.cities_table.head(int(len(self)*self.percentile))
 
-    def get_duration(self, mode: str='driving', origins: list=None) -> list(dict):
+    def get_duration(self, mode: str = 'driving', origins: list = None) -> list:
         """
         Gets duration between self.destination and origins in chosen mode.
         List origins will be splitted in chunks (default 100), since this is the current
@@ -70,12 +73,12 @@ class CitiesRoutes:
         self.dest_coords = list(json.load(req)["results"][0]['geometry']['location'].values())
 
         def chunker(seq, size):
+            """ Returns generator chunks of the given sequence"""
             return (seq[pos:pos + size] for pos in range(0, len(seq), size))
 
         duration = []
 
         for chunk in chunker(origins, chunk_size):
-
             if isinstance(chunk[0], list):
                 # if list of coordinate pairs [lat, lon]
                 origins_chunk_formatted = '|'.join(f'{x[0]},{x[1]}' for x in chunk)
@@ -102,15 +105,16 @@ class CitiesRoutes:
 
         return duration
 
-    def add_duration(self, is_percentile=True):
+    def add_duration(self, percentile=None):
         """
         Cut self.cities_table to leave top percentile fraction, add columns for duration
         (as value in seconds and as text 'X hours Y minutes'), add column for ratio 'driving time / transit time'
-        :param is_percentile:
+        :param is_percentile: if take the top percentile fraction or the whole
         :return: None, updates cities_table
         """
-        if is_percentile:
-            self.cities_table = self.retrieve_cities(percentile=0.05)
+        if percentile is None:
+            self.percentile = self.percentile or 0.05
+            self.cities_table = self.retrieve_cities(self.percentile)
 
         # get coords or cities list
         self.coords = self.cities_table['geopoint'].tolist()
